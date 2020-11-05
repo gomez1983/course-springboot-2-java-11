@@ -2,11 +2,22 @@ package com.educandoweb.course.entities;
 
 import java.io.Serializable;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+//*Converter objetos para o modelo relacional
+
+@Entity
 public class User implements Serializable { // Quando você quer que os objetos sejam transformados em cadeia de bystes, para que possam trafegar na rede, ou gravados em arquivos...
 
 	private static final long serialVersionUID = 1L; // Número de série padrão do Serializable
 
-	private Long id;
+	@Id //Indica qual atributo vai ter a chave primária da tabela do banco de dados.
+	@GeneratedValue(strategy = GenerationType.IDENTITY) //Identifica que ela é autoincrementável no BD
+	
+	private Long id; // Id é a chave primária da tabela de banco de dados.
 	private String name;
 	private String email;
 	private String phone;

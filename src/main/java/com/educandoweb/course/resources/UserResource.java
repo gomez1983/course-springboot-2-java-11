@@ -15,7 +15,7 @@ public class UserResource {
 
 	@GetMapping // Anotação para indicar que é uma requisição do tipo get do HTTP
 	public ResponseEntity<User> findAll() {
-		User u = new User(1L, "Maria", "maria@gmail.com", "9999999", "1234");
+		User u = new User(1L, "Maria", "maria@gmail.com", "9999999", "12345");
 		return ResponseEntity.ok().body(u); // Retorna no HTTP. O "body" faz retornar a resposta
 	}
 }
