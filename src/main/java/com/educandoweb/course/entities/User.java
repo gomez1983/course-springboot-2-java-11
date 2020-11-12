@@ -1,15 +1,20 @@
 package com.educandoweb.course.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 //*Converter objetos para o modelo relacional
 
 @Entity
+@Table(name = "tb_user")
 public class User implements Serializable { // Quando você quer que os objetos sejam transformados em cadeia de bystes, para que possam trafegar na rede, ou gravados em arquivos...
 
 	private static final long serialVersionUID = 1L; // Número de série padrão do Serializable
@@ -22,6 +27,9 @@ public class User implements Serializable { // Quando você quer que os objetos 
 	private String email;
 	private String phone;
 	private String password;
+	
+	@OneToMany(mappedBy = "client")
+	private List<Order> orders = new ArrayList<>(); //Dentro da classe user temos "orders", que é a associação à classe "Order"
 	
 	public User() {
 	}
@@ -75,6 +83,10 @@ public class User implements Serializable { // Quando você quer que os objetos 
 		this.password = password;
 	}
 
+	public List<Order> getOrders() {
+		return orders;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
