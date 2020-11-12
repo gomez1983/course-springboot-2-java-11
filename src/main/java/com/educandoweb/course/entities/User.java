@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 //*Converter objetos para o modelo relacional
 
 @Entity
@@ -28,6 +30,7 @@ public class User implements Serializable { // Quando você quer que os objetos 
 	private String phone;
 	private String password;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "client")
 	private List<Order> orders = new ArrayList<>(); //Dentro da classe user temos "orders", que é a associação à classe "Order"
 	
