@@ -8,8 +8,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 @Entity
 @Table(name = "tb_product")
@@ -26,7 +28,11 @@ public class Product implements Serializable { // Quando você quer que os objet
 	private String imgUrl;
 	
 	// O Hash set é uma classe. Set é uma interface e não pode ser instanciada.
-	@Transient
+	@ManyToMany
+	@JoinTable(name = "tb_product_category",
+	joinColumns = @JoinColumn(name = "product_id"),
+	inverseJoinColumns = @JoinColumn(name = "category_id"))
+	
 	private Set<Category> categories = new HashSet<>(); //Set representa um conjunto. Ele garante que não vai existir um produto na mesma categoria. Também foi instanciado um HashSet para garantir que a coleção comece vazia (porém instanciada).
 
 	public Product() {

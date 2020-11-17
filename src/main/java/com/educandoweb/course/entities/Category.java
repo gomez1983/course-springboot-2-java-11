@@ -8,8 +8,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "tb_category")
@@ -23,7 +25,8 @@ public class Category implements Serializable { // Quando você quer que os obje
 	private String name;
 
 	// O Hash set é uma classe. Set é uma interface e não pode ser instanciada.
-	@Transient
+	@JsonIgnore
+	@ManyToMany(mappedBy = "categories")
 	private Set<Product> products = new HashSet<>(); //Set representa um conjunto. Ele garante que não vai existir um produto na mesma categoria. Também foi instanciado um HashSet para garantir que a coleção comece vazia (porém instanciada).
 	
 	public Category () {
