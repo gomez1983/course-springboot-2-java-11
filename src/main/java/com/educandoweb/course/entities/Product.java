@@ -12,27 +12,33 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 @Entity
-@Table(name = "tb_category")
-public class Category implements Serializable { // Quando você quer que os objetos sejam transformados em cadeia de bystes, para que possam trafegar na rede, ou gravados em arquivos...
+@Table(name = "tb_product")
+public class Product implements Serializable { // Quando você quer que os objetos sejam transformados em cadeia de bystes, para que possam trafegar na rede, ou gravados em arquivos...
 
-	private static final long serialVersionUID = 1L; // Número de série padrão do Serializable
+	private static final long serialVersionUID = 1L; // Número de série padrão do Serializable {
 
 	@Id //Indica qual atributo vai ter a chave primária da tabela do banco de dados.
 	@GeneratedValue(strategy = GenerationType.IDENTITY) //Identifica que ela é autoincrementável no BD
 	private Long id;
 	private String name;
-
+	private String description;
+	private Double price;
+	private String imgUrl;
+	
 	// O Hash set é uma classe. Set é uma interface e não pode ser instanciada.
 	@Transient
-	private Set<Product> products = new HashSet<>(); //Set representa um conjunto. Ele garante que não vai existir um produto na mesma categoria. Também foi instanciado um HashSet para garantir que a coleção comece vazia (porém instanciada).
-	
-	public Category () {
+	private Set<Category> categories = new HashSet<>(); //Set representa um conjunto. Ele garante que não vai existir um produto na mesma categoria. Também foi instanciado um HashSet para garantir que a coleção comece vazia (porém instanciada).
+
+	public Product() {
 	}
 
-	public Category(Long id, String name) {
+	public Product(Long id, String name, String description, Double price, String imgUrl) {
 		super();
 		this.id = id;
 		this.name = name;
+		this.description = description;
+		this.price = price;
+		this.imgUrl = imgUrl;
 	}
 
 	public Long getId() {
@@ -50,9 +56,33 @@ public class Category implements Serializable { // Quando você quer que os obje
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	public Set<Product> getProducts() {
-		return products;
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public Double getPrice() {
+		return price;
+	}
+
+	public void setPrice(Double price) {
+		this.price = price;
+	}
+
+	public String getImgUrl() {
+		return imgUrl;
+	}
+
+	public void setImgUrl(String imgUrl) {
+		this.imgUrl = imgUrl;
+	}
+
+	public Set<Category> getCategories() {
+		return categories;
 	}
 
 	@Override
@@ -71,7 +101,7 @@ public class Category implements Serializable { // Quando você quer que os obje
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Category other = (Category) obj;
+		Product other = (Product) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
