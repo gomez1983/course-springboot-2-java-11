@@ -11,7 +11,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "tb_product")
@@ -35,6 +38,9 @@ public class Product implements Serializable { // Quando você quer que os objet
 	
 	private Set<Category> categories = new HashSet<>(); //Set representa um conjunto. Ele garante que não vai existir um produto na mesma categoria. Também foi instanciado um HashSet para garantir que a coleção comece vazia (porém instanciada).
 
+	@OneToMany(mappedBy = "id.product")
+	private Set<OrderItem> items = new HashSet<>();
+	
 	public Product() {
 	}
 
@@ -90,7 +96,16 @@ public class Product implements Serializable { // Quando você quer que os objet
 	public Set<Category> getCategories() {
 		return categories;
 	}
-
+	
+	@JsonIgnore
+	public Set<Order> getOrders() {
+		Set<Order> set = new HashSet<>();
+		for (OrderItem x : items) { // para cada elemento x
+			set.add(x.getOrder()); // adiciona no conjunto x.getOrder. Isso pega o objeto Order associado ao OrderItem.
+		}
+		return set;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
