@@ -11,6 +11,8 @@ import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "tb_payment")
 public class Payment implements Serializable { // Quando você quer que os objetos sejam transformados em cadeia de bystes, para que possam trafegar na rede, ou gravados em arquivos...
@@ -22,6 +24,7 @@ public class Payment implements Serializable { // Quando você quer que os objet
 	private Long id;
 	private Instant moment;
 	
+	@JsonIgnore
 	@OneToOne // Indica que essa classe é dependente
 	@MapsId
 	private Order order;
