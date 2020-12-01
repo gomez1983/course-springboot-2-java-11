@@ -24,4 +24,8 @@ public class UserService { // Implementação para buscar todos os usuários e b
 		Optional<User> obj = repository.findById(id);
 		return obj.get(); // Método retorna o objeto do tipo "User" que estiver dentro do "Optional"
 	}
+	
+	public User insert(User obj) { //Operação retorna o usuário salvo
+		return repository.save(obj); 
+	}
 }
