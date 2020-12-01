@@ -28,4 +28,8 @@ public class UserService { // Implementação para buscar todos os usuários e b
 	public User insert(User obj) { //Operação retorna o usuário salvo
 		return repository.save(obj); 
 	}
+	
+	public void delete(Long id) {
+		repository.deleteById(id);
+	}
 }
