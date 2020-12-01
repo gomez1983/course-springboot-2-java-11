@@ -32,4 +32,17 @@ public class UserService { // Implementação para buscar todos os usuários e b
 	public void delete(Long id) {
 		repository.deleteById(id);
 	}
+	
+	public User update(Long id, User obj) {
+		User entity = repository.getOne(id); // Vai instanciar o usuário sem ir ao BD. Apenas vai monitorar ele para poder trabalhar mais tarde no BD;
+		updateData(entity, obj);
+		return repository.save(entity);
+	}
+
+	private void updateData(User entity, User obj) {
+		entity.setName(obj.getName());
+		entity.setEmail(obj.getEmail());
+		entity.setPhone(obj.getPhone());		
+	}
+	
 }
